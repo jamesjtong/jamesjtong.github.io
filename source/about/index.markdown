@@ -7,4 +7,4 @@ sharing: true
 footer: true
 ---
 
-I'm still finding myself.
+I'm a professional software engineer specializing in working with and build JSON APIS. Technologies that I love and work with include AngularJS, Ruby on Rails, and Amazon Web Services

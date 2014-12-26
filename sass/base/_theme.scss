@@ -2,7 +2,7 @@ $noise-bg: image-url('noise.png') top left !default;
 $img-border: inline-image('dotted-border.png') !default;
 
 // 
-$theme-color: #C63D0F ;
+$theme-color: turquoise ;
 $secondary-theme-color : #3B3738;
 $main-title-color: $theme-color;
 
@@ -91,5 +91,9 @@ body {
   height: 100%;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+pre {
+  background: $theme-color !important;
 }
 
