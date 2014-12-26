@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Byebug | My Octopress Blog]]></title>
+  <title><![CDATA[Category: Byebug | Experimenting with Code]]></title>
   <link href="http://jamesjtong.github.io/blog/categories/byebug/atom.xml" rel="self"/>
   <link href="http://jamesjtong.github.io/"/>
-  <updated>2014-12-26T16:29:03-05:00</updated>
+  <updated>2014-12-26T16:30:44-05:00</updated>
   <id>http://jamesjtong.github.io/</id>
   <author>
     <name><![CDATA[James Tong]]></name>
