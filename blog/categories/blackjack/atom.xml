@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Blackjack | My Octopress Blog]]></title>
+  <link href="http://jamesjtong.github.io/blog/categories/blackjack/atom.xml" rel="self"/>
+  <link href="http://jamesjtong.github.io/"/>
+  <updated>2014-12-26T15:36:49-05:00</updated>
+  <id>http://jamesjtong.github.io/</id>
+  <author>
+    <name><![CDATA[James Tong]]></name>
+    <email><![CDATA[jtong33@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[BASHing Commands From Within a Ruby Script]]></title>
+    <link href="http://jamesjtong.github.io/blog/2013/11/20/bashing-commands-from-within-a-ruby-script/"/>
+    <updated>2013-11-20T10:21:00-05:00</updated>
+    <id>http://jamesjtong.github.io/blog/2013/11/20/bashing-commands-from-within-a-ruby-script</id>
+    <content type="html"><![CDATA[<p>Recently, I wanted to create a blackjack program that incorporates a real life blackjack card-counting situation. It needed to be realistic so it would need a pause. Additionally, I wanted it to clear the screen every once in a while so that the user won&rsquo;t be overwhelmed with the heavy text from previous rounds. I realized that some of the bash commands would be an instant remedy to my problems. Then, I wondered what is the best way to incorporate these bash commands in my script. The 3 ways that I know are using</p>
+
+<p>1) Using system<br/>
+    system(&lsquo;ls&rsquo;)</p>
+
+<p>2) Using backticks <code>  
+   </code>ls`</p>
+
+<p>3) Using built in syntax %x()<br/>
+ NOTE: that for x you can replace it with any character; it just acts as a delimiter<br/>
+     %x(ls)</p>
+
+<p>There are subtle differences between these 3. The most important difference is regarding there return values. System returns true or false depending on if the command was able to be executed, while the other 2 return the result of the backtick command. This is an extremely important distinction as my &lsquo;clear&rsquo; command in my blackjack game would not work with backticks or the built in syntax. This is because clear needs tooutputs ANSI sequences to clear the screen; if I just returned clear (using backticks or the build in syntax), my screen would not get cleared.If I wanted it to be executed correctly, I would need to do a system(&lsquo;clear&rsquo;); the other 2 ways of bashing commands wouldn&rsquo;t work.</p>
+
+<p>An actual code snippet from my Counting Cards Blackjack Game, utilizing BASHing within a Ruby Script:</p>
+
+<pre><code>def dealer_hits_until_17
+  @new_hand = false
+  while hand_score(@dealer_hand) &lt; 17 &amp;&amp; @new_hand == false
+    puts "Dealer Hits! His hand is now #{@dealer_hand}"
+    system('clear')
+    hit(@dealer_hand)
+    `sleep 1`
+  end
+  if @new_hand == false
+    compare_hand_value
+  end
+end
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: The Flatiron School | My Octopress Blog]]></title>
+  <link href="http://jamesjtong.github.io/blog/categories/the-flatiron-school/atom.xml" rel="self"/>
+  <link href="http://jamesjtong.github.io/"/>
+  <updated>2014-12-26T15:36:49-05:00</updated>
+  <id>http://jamesjtong.github.io/</id>
+  <author>
+    <name><![CDATA[James Tong]]></name>
+    <email><![CDATA[jtong33@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Start of My Blog]]></title>
+    <link href="http://jamesjtong.github.io/blog/2013/09/11/start-of-my-blog/"/>
+    <updated>2013-09-11T10:57:00-04:00</updated>
+    <id>http://jamesjtong.github.io/blog/2013/09/11/start-of-my-blog</id>
+    <content type="html"><![CDATA[<p>Today, I am going to start blogging about my journey in learning web development and computer programming. This journey started a few months ago as I decided I wanted a career in which I was constantly learning and constantly building.</p>
+
+<p>To achieve my goal, I started doing web tutorials at codecacademy, rubymonk, codeschool, teamtreehouse. Along the way, I also read a few books including Peter Cooper&rsquo;s Beginning Ruby, eloquentjavascript, Chris Pine&rsquo;s learn to program. (I will review each of these sources in-depth in a future post).</p>
+
+<p>After some time self-studying, I read an article about programming bootcamps and how they were revolutionizing learning. Excited about the prospect of an intense &ldquo;bootcamp-like&rdquo; learning experience, I did a lot of research on the different schools and started applying to many. I ended up choosing the Flatiron School. In this blog, I will post about some of the cool things that I learn along the way.</p>
+
+<p>If anyone has any questions regarding my posts or my experiences, feel free to email me at <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x6a;&#x74;&#x6f;&#110;&#103;&#x33;&#x33;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#106;&#116;&#x6f;&#x6e;&#103;&#51;&#51;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
+]]></content>
+  </entry>
+  
+</feed>
