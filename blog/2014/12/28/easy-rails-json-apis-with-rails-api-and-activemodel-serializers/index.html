@@ -1,0 +1,598 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Easy Rails JSON APIs With Rails-api and Activemodel Serializers - Experimenting with Code</title>
+  <meta name="author" content="James Tong">
+
+  
+  <meta name="description" content="JSON APIs are all the craze nowadays in web programming. Let&rsquo;s talk about an easy way to create a JSON API with rails-api. First, let&rsquo;s &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://jamesjtong.github.io/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Experimenting with Code" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href='//fonts.googleapis.com/css?family=Sintony' rel='stylesheet' type='text/css'>
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-44809833-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body    class="collapse-sidebar sidebar-footer" >
+  <nav role="navigation">
+<form action="https://www.quora.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:jamesjtong.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Type to Search"/>
+  </fieldset>
+</form>
+  
+
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/archives">Archives</a></li>
+  <li><a href="/projects">Projects</a></li>
+  <li><a href="/resume">Resume</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <header role="banner"><div class='hero'>
+	<div class='wrap'>
+	  <h1><a href="/">Experimenting with Code</a></h1>
+	  
+	    <h2>By James Tong, Full Stack Engineer specializing in AngularJS + Rails APIs</h2>
+	  
+	</div>
+</div>
+
+</header>
+  
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Easy Rails JSON APIs With Rails-api and Activemodel Serializers</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-28T12:32:01-05:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>JSON APIs are all the craze nowadays in web programming. Let&rsquo;s talk about an easy way to create a JSON API with rails-api. First, let&rsquo;s install the rails-api gem.</p>
+
+<pre><code>gem install rails-api
+</code></pre>
+
+<p>Then let&rsquo;s make a new rails-api app (rails-api is basically just a lightweight version of rails with just the resources necessary and customized for creating an api, i.e. no view layer support). For this blog, I am going to create an api for the backend for one of my past apps (<a href="http://joblogger.herokuapp.com/">http://joblogger.herokuapp.com/</a>)</p>
+
+<pre><code>rails-api new joblogger-api &amp;&amp; cd joblogger-api
+</code></pre>
+
+<p>Great, this command created what looks to be a smaller version of a normal rails app and changed directory into the app. Now let&rsquo;s add what we are going to need to the Gemfile:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">source</span> <span class="s1">&#39;https://rubygems.org&#39;</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;rails&#39;</span><span class="p">,</span> <span class="s1">&#39;4.1.0.beta1&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;rails-api&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="ss">:group</span> <span class="o">=&gt;</span> <span class="ss">:development</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;pg&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># JSON serialization</span>
+</span><span class='line'><span class="n">gem</span> <span class="s2">&quot;active_model_serializers&quot;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 0.8.1&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">group</span> <span class="ss">:development</span><span class="p">,</span> <span class="ss">:test</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;rspec-rails&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 3.0&#39;</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;factory_girl_rails&#39;</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;faker&#39;</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;pry&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add your gem for whichever database you are going to be using (i am going to be using postgres and editing the database.yml, but it is fine and easier for you if you use the default sqlite gem)</p>
+
+<p>The gems of note is the active_model_serializer gem (this let&rsquo;s me format the JSON output for various resources). My other gems are for testing using Rspec, factories, creating fake seed data (faker), and debugging (pry).</p>
+
+<p>Let&rsquo;s run the bundle and execute the setup commands for the gems (for me there is only rspec).</p>
+
+<pre><code>bundle install
+rails generate rspec:install
+</code></pre>
+
+<p>Great, now let&rsquo;s create a resource almost every app needs. Let&rsquo;s create users.</p>
+
+<pre><code>rails g resource user name:string email:string favorite_color:string
+</code></pre>
+
+<p>Notice that the rails generator now knows that this is an api (thanks to this being a rails-api project) and refrains from generating routes that arent used in apis (if you look at the routes.rb file, new and edit aren&rsquo;t included). Also notice that a serializer is generated for the user model thanks to our activerecord serializer gem :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">#routes.rb</span>
+</span><span class='line'><span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">resources</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">except</span><span class="p">:</span> <span class="o">[</span><span class="ss">:new</span><span class="p">,</span> <span class="ss">:edit</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now let&rsquo;s create some seed data using Faker.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="mi">5</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
+</span><span class='line'>  <span class="no">User</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Name</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="ss">email</span><span class="p">:</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Internet</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="ss">favorite_color</span><span class="p">:</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Commerce</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let&rsquo;s write some tests and create an index action on the UsersController to get a list of all the users. Let&rsquo;s say the functionality we want for our app is for the favorite_color to not be shown as part of the index action:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">#spec/controllers/user_controller_spec.rb</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;rails_helper&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span> <span class="no">UsersController</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="ss">:controller</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">describe</span> <span class="s2">&quot;index&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">before</span> <span class="p">{</span> <span class="n">get</span> <span class="ss">:index</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">it</span> <span class="s2">&quot;responds successfully with an HTTP 200 status code&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_success</span>
+</span><span class='line'>      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">it</span> <span class="s2">&quot;lists the user&#39;s public attributes while hiding the user&#39;s favorite_color&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">response_keys</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">)</span><span class="o">[</span><span class="s2">&quot;users&quot;</span><span class="o">].</span><span class="n">first</span><span class="o">.</span><span class="n">keys</span>
+</span><span class='line'>      <span class="n">expect</span><span class="p">(</span><span class="n">response_keys</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">expect</span><span class="p">(</span><span class="n">response_keys</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">expect</span><span class="p">(</span><span class="n">response_keys</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">&quot;email&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">expect</span><span class="p">(</span><span class="n">response_keys</span><span class="p">)</span><span class="o">.</span><span class="n">to_not</span> <span class="kp">include</span><span class="p">(</span><span class="s2">&quot;favorite_color&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">#app/controllers/users_controller.rb</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">UsersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">index</span>
+</span><span class='line'>    <span class="n">users</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">all</span>
+</span><span class='line'>    <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="n">users</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now let&rsquo;s run rspec . and we expect the second test to fail as the response will probably include favorite_color. (NOTE: you may need to run rake db:setup with the appropriate rails environments and/or rake db:migrate to setup your test and development databases if you haven&rsquo;t already)</p>
+
+<pre><code>rspec .
+</code></pre>
+
+<p>Great as expected, one test failed. You&rsquo;re failure should be somewhere along the lines of:</p>
+
+<pre><code>Failure/Error: expect(response_keys).to_not include("favorite_color")
+       expected ["id", "name", "email", "favorite_color"] not to include "favorite_color"
+</code></pre>
+
+<p>Now, let&rsquo;s edit our user serializer so that favorite_color isn&rsquo;t shown as part of the index action (/users)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">#app/serializers/user_serializer.rb</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">UserSerializer</span> <span class="o">&lt;</span> <span class="no">ActiveModel</span><span class="o">::</span><span class="no">Serializer</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The attributes are a whitelist of a what is shown. Now let&rsquo;s rspec . again and we can see all tests pass!
+You can also run a rails server and hit your local endpoint /users to confirm that this works. You should get something like this</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>   <span class="nt">&quot;users&quot;</span><span class="p">:[</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span>
+</span><span class='line'>         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Devonte Hagenes&quot;</span><span class="p">,</span>
+</span><span class='line'>         <span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="s2">&quot;brendon@kihnerdman.com&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span>
+</span><span class='line'>         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Malcolm Huel&quot;</span><span class="p">,</span>
+</span><span class='line'>         <span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="s2">&quot;kimberly.wisozk@nicolasgrant.net&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span>
+</span><span class='line'>         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Wilfredo Bruen&quot;</span><span class="p">,</span>
+</span><span class='line'>         <span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="s2">&quot;ashleigh@goldner.org&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
+</span><span class='line'>         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Miss Arielle Leuschke&quot;</span><span class="p">,</span>
+</span><span class='line'>         <span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="s2">&quot;don_spinka@spinka.net&quot;</span>
+</span><span class='line'>      <span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+</span><span class='line'>         <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Quinn Hoppe&quot;</span><span class="p">,</span>
+</span><span class='line'>         <span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="s2">&quot;rita@olsonprohaska.biz&quot;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>   <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Congratulations, you have just created a simple Rails JSON API! (To view the full code, visit <a href="https://github.com/jamesjtong/joblogger-api/tree/blog-12-28-14">https://github.com/jamesjtong/joblogger-api/tree/blog-12-28-14</a>)</p>
+
+<p>HAPPY HACKING</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">James Tong</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-28T12:32:01-05:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/activemodel-serializers/'>activemodel serializers</a>, <a class='category' href='/blog/categories/json/'>json</a>, <a class='category' href='/blog/categories/rails-api/'>rails api</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://jamesjtong.github.io/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/" data-via="" data-counturl="http://jamesjtong.github.io/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/02/17/what-the-rest-rest-in-pieces/" title="Previous Post: What the "REST"? REST in Pieces ">&laquo; What the &#8220;REST&#8221;? REST in Pieces </a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+<!-- 
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/">Easy Rails JSON APIs With Rails-api and Activemodel Serializers</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/17/what-the-rest-rest-in-pieces/">What the &#8220;REST&#8221;? REST in Pieces</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/20/bashing-commands-from-within-a-ruby-script/">BASHing Commands From Within a Ruby Script</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/10/pry-irbs-younger-brother/">Pry - IRB&#8217;s Smarter Younger Brother</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/20/resources-to-learn-ruby-slash-rails-programming-from-scratch/">Resources to Learn Ruby/Rails Programming From Scratch</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/jamesjtong">@jamesjtong</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'jamesjtong',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+ &#8211;>
+
+    </div>
+  </div>
+  <!-- <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - James Tong -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+
+
+</footer> &#8211;>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'experimentingwithcodejamestong';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://jamesjtong.github.io/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/';
+        var disqus_url = 'http://jamesjtong.github.io/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  
+  <aside class="sidebar">
+    
+      <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/">Easy Rails JSON APIs With Rails-api and Activemodel Serializers</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/17/what-the-rest-rest-in-pieces/">What the &#8220;REST&#8221;? REST in Pieces</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/20/bashing-commands-from-within-a-ruby-script/">BASHing Commands From Within a Ruby Script</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/10/pry-irbs-younger-brother/">Pry - IRB&#8217;s Smarter Younger Brother</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/09/20/resources-to-learn-ruby-slash-rails-programming-from-scratch/">Resources to Learn Ruby/Rails Programming From Scratch</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/jamesjtong">@jamesjtong</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'jamesjtong',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+    
+  </aside>
+  
+</body>
+
+
+</html>
