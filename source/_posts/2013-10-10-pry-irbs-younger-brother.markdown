@@ -115,14 +115,14 @@ What pry-byebug allows you to do is to step through your code. Notice how I put 
   
 You will end up with something like this:  
 
-{% img http://jamesjtong.com/images/screenshotforpry.png %}  
+{% img /images/screenshotforpry.png %}  
 
 First type 'q' to enter back into your pry session.
     q
 
 You can see a group of your local variables/methods with the 'ls' command. You can even type in the name of the variable to see what it is currently defined as (shown below).  
 
-{% img http://jamesjtong.com/images/pryss2.png %}  
+{% img /images/pryss2.png %}  
 
 As this is just an intro. to Pry and Pry-byebug and there are so many different things to learn about them, I will let you explore these two gems on your own. In this pry session, some other commands that you may want to try on your own are 'help', 'cd', 'quit', 'step', 'next'.  
 
