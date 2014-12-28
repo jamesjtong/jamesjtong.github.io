@@ -8,9 +8,10 @@
   <title>Experimenting with Code</title>
   <meta name="author" content="James Tong">
 
+   
+  <meta name="description" content="Adventures in coding as a Full Stack Engineer">
   
-  <meta name="description" content="JSON APIs are all the craze nowadays in web programming. Let&rsquo;s talk about an easy way to create a JSON API with rails-api. First, let&rsquo;s &hellip;">
-  
+  <meta name="keywords" content="">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -19,18 +20,19 @@
 
   
   <link rel="canonical" href="http://jamesjtong.github.io">
-  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Experimenting with Code" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap-collapse.js"></script>
+  <script src="/js/modernizr-2.0.js"></script>
+  <script src="/js/octopress.js" type="text/javascript"></script>
+  <script src="/js/application.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href='//fonts.googleapis.com/css?family=Sintony' rel='stylesheet' type='text/css'>
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
   <script type="text/javascript">
@@ -48,51 +50,77 @@
 
 </head>
 
-<body    class="collapse-sidebar sidebar-footer" >
-  <nav role="navigation">
-<form action="https://www.quora.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:jamesjtong.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Type to Search"/>
-  </fieldset>
-</form>
-  
-
-<ul class="main-navigation">
-  <li><a href="/">Home</a></li>
-  <li><a href="/archives">Archives</a></li>
-  <li><a href="/projects">Projects</a></li>
-  <li><a href="/resume">Resume</a></li>
-  <li><a href="/about">About</a></li>
+<body   >
+  <div class="navbar navbar-inverse navbar-static-top">
+  	<div class="navbar-inner">
+  	  <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="fui-menu-24"></span>
+        </a>
+  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
+  	      <ul class="nav">
+    
+        <li class="active"><a href="/index.html">Home</a></li>
+    
+        <li ><a href="/archives/index.html">Archives</a></li>
+    
+        <li ><a href="/projects/index.html">Projects</a></li>
+    
+        <li ><a href="/about/index.html">About</a></li>
+    
+        <li ><a href="/resume/index.html">Resume</a></li>
+    
 </ul>
 
-</nav>
-  <header role="banner"><div class='hero'>
-	<div class='wrap'>
-	  <h1><a href="/">Experimenting with Code</a></h1>
-	  
-	    <h2>By James Tong, Full Stack Engineer specializing in AngularJS + Rails APIs</h2>
-	  
-	</div>
+<ul class="nav pull-right">
+    
+    <li><a href="http://github.com/jamesjtong" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
+    
+    
+    
+    
+    <li><a href="http://twitter.com/jamesjtong" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
+    
+    
+    
+    
+
+    
+    <li><a href="mailto:jtong33@gmail.com" title="Email"><i class="icon-envelope social-navbar"></i></a></li>
+    
+</ul>
+
+  	    </div>
+  	  </div>
+  	</div>
+  </div>
+  <div class="container" id="main">
+      <div class="row-fluid">
+        <div id="content">
+          <div class="jumbotron">
+  <div class="container">
+    
+      Experimenting with Code
+    
+    <h3 class="tagline">
+      
+        By James Tong, Full Stack Engineer specializing in AngularJS + Rails APIs
+      
+    </h3>
+  </div>
 </div>
 
-</header>
-  
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
+
+<div class="blog-index">
   
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/">Easy Rails JSON APIs With Rails-api and Activemodel Serializers</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -104,17 +132,27 @@
   
 
 
-<time datetime="2014-12-28T12:32:01-05:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/#disqus_thread"
-             data-disqus-identifier="http://jamesjtong.github.io/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>JSON APIs are all the craze nowadays in web programming. Let&rsquo;s talk about an easy way to create a JSON API with rails-api. First, let&rsquo;s install the rails-api gem.</p>
+<i class="icon-calendar-empty"></i> <time datetime="2014-12-28T12:32:01-05:00" pubdate data-updated="true"></time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://jamesjtong.github.io/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/activemodel-serializers/"><span class="badge">activemodel serializers</span></a>
+          
+          <a href="/blog/categories/json/"><span class="badge">json</span></a>
+          
+          <a href="/blog/categories/rails-api/"><span class="badge">rails api</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/">Easy Rails JSON APIs with rails-api and activemodel serializers</a></h1>
+      <p>JSON APIs are all the craze nowadays in web programming. Let&rsquo;s talk about an easy way to create a JSON API with rails-api. First, let&rsquo;s install the rails-api gem.</p>
 
 <pre><code>gem install rails-api
 </code></pre>
@@ -358,23 +396,26 @@ You can also run a rails server and hit your local endpoint /users to confirm th
 <p>Congratulations, you have just created a simple Rails JSON API! (To view the full code, visit <a href="https://github.com/jamesjtong/joblogger-api/tree/blog-12-28-14">https://github.com/jamesjtong/joblogger-api/tree/blog-12-28-14</a>)</p>
 
 <p>HAPPY HACKING</p>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/17/what-the-rest-rest-in-pieces/">What the &#8220;REST&#8221;? REST in Pieces</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -386,17 +427,27 @@ You can also run a rails server and hit your local endpoint /users to confirm th
   
 
 
-<time datetime="2014-02-17T11:54:00-05:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/02/17/what-the-rest-rest-in-pieces/#disqus_thread"
-             data-disqus-identifier="http://jamesjtong.github.io/blog/2014/02/17/what-the-rest-rest-in-pieces/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong><em>A short guide breaking down the key components of RESTful architecture</em></strong></p>
+<i class="icon-calendar-empty"></i> <time datetime="2014-02-17T11:54:00-05:00" pubdate data-updated="true"></time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://jamesjtong.github.io/blog/2014/02/17/what-the-rest-rest-in-pieces/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/api/"><span class="badge">api</span></a>
+          
+          <a href="/blog/categories/rest/"><span class="badge">rest</span></a>
+          
+          <a href="/blog/categories/rest-architecture,-restful-api/"><span class="badge">rest architecture, restful api</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2014/02/17/what-the-rest-rest-in-pieces/">What the &#8220;REST&#8221;? REST in Pieces </a></h1>
+      <p><strong><em>A short guide breaking down the key components of RESTful architecture</em></strong></p>
 
 <p><img src="http://www.digsdigs.com/photos/Luxury-Classic-Sofa-and-Armchairs-Imperial-by-Vimercati-Media-5-554x377.jpg" title="REST Sofa" alt="REST Sofa" /></p>
 
@@ -526,23 +577,26 @@ Try submitting a GET request to (or just go to the following urls) the following
 <dt>Difference between URI and URL</dt>
 <dd>the difference between a uri and an url is that the url includes an &ldquo;access mechanism protocol&rdquo;, or &ldquo;network location&rdquo;, e.g. <a href="http://">http://</a> or  <a href="ftp://">ftp://</a>)</dd>
 </dl>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/11/20/bashing-commands-from-within-a-ruby-script/">BASHing Commands From Within a Ruby Script</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -554,17 +608,27 @@ Try submitting a GET request to (or just go to the following urls) the following
   
 
 
-<time datetime="2013-11-20T10:21:00-05:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/11/20/bashing-commands-from-within-a-ruby-script/#disqus_thread"
-             data-disqus-identifier="http://jamesjtong.github.io/blog/2013/11/20/bashing-commands-from-within-a-ruby-script/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recently, I wanted to create a blackjack program that incorporates a real life blackjack card-counting situation. It needed to be realistic so it would need a pause. Additionally, I wanted it to clear the screen every once in a while so that the user won&rsquo;t be overwhelmed with the heavy text from previous rounds. I realized that some of the bash commands would be an instant remedy to my problems. Then, I wondered what is the best way to incorporate these bash commands in my script. The 3 ways that I know are using</p>
+<i class="icon-calendar-empty"></i> <time datetime="2013-11-20T10:21:00-05:00" pubdate data-updated="true"></time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://jamesjtong.github.io/blog/2013/11/20/bashing-commands-from-within-a-ruby-script/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/bash/"><span class="badge">bash</span></a>
+          
+          <a href="/blog/categories/blackjack/"><span class="badge">blackjack</span></a>
+          
+          <a href="/blog/categories/ruby/"><span class="badge">ruby</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2013/11/20/bashing-commands-from-within-a-ruby-script/">BASHing Commands from Within a Ruby Script</a></h1>
+      <p>Recently, I wanted to create a blackjack program that incorporates a real life blackjack card-counting situation. It needed to be realistic so it would need a pause. Additionally, I wanted it to clear the screen every once in a while so that the user won&rsquo;t be overwhelmed with the heavy text from previous rounds. I realized that some of the bash commands would be an instant remedy to my problems. Then, I wondered what is the best way to incorporate these bash commands in my script. The 3 ways that I know are using</p>
 
 <p>1) Using system<br/>
     system(&lsquo;ls&rsquo;)</p>
@@ -593,23 +657,26 @@ Try submitting a GET request to (or just go to the following urls) the following
   end
 end
 </code></pre>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/10/pry-irbs-younger-brother/">Pry - IRB&#8217;s Smarter Younger Brother</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -621,17 +688,33 @@ end
   
 
 
-<time datetime="2013-10-10T11:58:00-04:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/10/10/pry-irbs-younger-brother/#disqus_thread"
-             data-disqus-identifier="http://jamesjtong.github.io/blog/2013/10/10/pry-irbs-younger-brother/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><hr />
+<i class="icon-calendar-empty"></i> <time datetime="2013-10-10T11:58:00-04:00" pubdate data-updated="true"></time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://jamesjtong.github.io/blog/2013/10/10/pry-irbs-younger-brother/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/byebug/"><span class="badge">byebug</span></a>
+          
+          <a href="/blog/categories/installing-pry/"><span class="badge">installing pry</span></a>
+          
+          <a href="/blog/categories/learning-pry/"><span class="badge">learning pry</span></a>
+          
+          <a href="/blog/categories/pry-gem/"><span class="badge">pry gem</span></a>
+          
+          <a href="/blog/categories/pry-ruby/"><span class="badge">pry ruby</span></a>
+          
+          <a href="/blog/categories/pry-byebug-ruby/"><span class="badge">pry-byebug ruby</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2013/10/10/pry-irbs-younger-brother/">Pry - IRB&#8217;s Smarter Younger Brother</a></h1>
+      <hr />
 
 <p>Pry is one of my favorite gems. It is a REPL (it reads, evaluates, prints, loops). Pry is a replacement for Ruby&rsquo;s default REPL, irb. Pry&rsquo;s advantages over irb are Pry adds additional features such as syntax-highlighting, auto indenting, and super useful debugging features. To install pry and its plugins (in this guide, I will also be using pry-byebug), perform the following commands:</p>
 
@@ -826,23 +909,26 @@ Read more about pry at <a href="https://github.com/pry/pry">Pry github repo</a><
 Read more about pry-byebug at <a href="https://github.com/deivid-rodriguez/pry-byebug">Pry-byebug github repo</a></p>
 
 <p>Thanks for reading!</p>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/20/resources-to-learn-ruby-slash-rails-programming-from-scratch/">Resources to Learn Ruby/Rails Programming From Scratch</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -854,17 +940,29 @@ Read more about pry-byebug at <a href="https://github.com/deivid-rodriguez/pry-b
   
 
 
-<time datetime="2013-09-20T14:53:00-04:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/09/20/resources-to-learn-ruby-slash-rails-programming-from-scratch/#disqus_thread"
-             data-disqus-identifier="http://jamesjtong.github.io/blog/2013/09/20/resources-to-learn-ruby-slash-rails-programming-from-scratch/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Today, I am going to be talking a little bit about the different resources that I used to learn programming/web development.</p>
+<i class="icon-calendar-empty"></i> <time datetime="2013-09-20T14:53:00-04:00" pubdate data-updated="true"></time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://jamesjtong.github.io/blog/2013/09/20/resources-to-learn-ruby-slash-rails-programming-from-scratch/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/coding-websites/"><span class="badge">coding websites</span></a>
+          
+          <a href="/blog/categories/learn-programming-books/"><span class="badge">learn programming books</span></a>
+          
+          <a href="/blog/categories/learn-ruby/"><span class="badge">learn ruby</span></a>
+          
+          <a href="/blog/categories/reviews/"><span class="badge">reviews</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2013/09/20/resources-to-learn-ruby-slash-rails-programming-from-scratch/">Resources to Learn Ruby/Rails Programming from Scratch</a></h1>
+      <p>Today, I am going to be talking a little bit about the different resources that I used to learn programming/web development.</p>
 
 <p>Web Learning:
 Udacity-This site has a lot of courses. The course that I took here was Intro. to Computer Science. I feel that this course is a great first step into programming. The quality of instructor, TA, and course material are top-notch. Please note that this course is taught in Python. As of writing this review, Udacity is still free. I definitely have no complaints about this site.  10/10</p>
@@ -904,23 +1002,26 @@ a) Create a simple programming project</li>
 
 
 <p>Thanks for reading and happy programming!</p>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/11/start-of-my-blog/">Start of My Blog</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -932,57 +1033,63 @@ a) Create a simple programming project</li>
   
 
 
-<time datetime="2013-09-11T10:57:00-04:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/09/11/start-of-my-blog/#disqus_thread"
-             data-disqus-identifier="http://jamesjtong.github.io/blog/2013/09/11/start-of-my-blog/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Today, I am going to start blogging about my journey in learning web development and computer programming. This journey started a few months ago as I decided I wanted a career in which I was constantly learning and constantly building.</p>
+<i class="icon-calendar-empty"></i> <time datetime="2013-09-11T10:57:00-04:00" pubdate data-updated="true"></time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://jamesjtong.github.io/blog/2013/09/11/start-of-my-blog/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/start-blogging/"><span class="badge">start blogging</span></a>
+          
+          <a href="/blog/categories/the-flatiron-school/"><span class="badge">the flatiron school</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2013/09/11/start-of-my-blog/">Start of My Blog</a></h1>
+      <p>Today, I am going to start blogging about my journey in learning web development and computer programming. This journey started a few months ago as I decided I wanted a career in which I was constantly learning and constantly building.</p>
 
 <p>To achieve my goal, I started doing web tutorials at codecacademy, rubymonk, codeschool, teamtreehouse. Along the way, I also read a few books including Peter Cooper&rsquo;s Beginning Ruby, eloquentjavascript, Chris Pine&rsquo;s learn to program. (I will review each of these sources in-depth in a future post).</p>
 
 <p>After some time self-studying, I read an article about programming bootcamps and how they were revolutionizing learning. Excited about the prospect of an intense &ldquo;bootcamp-like&rdquo; learning experience, I did a lot of research on the different schools and started applying to many. I ended up choosing the Flatiron School. In this blog, I will post about some of the cool things that I learn along the way.</p>
 
-<p>If anyone has any questions regarding my posts or my experiences, feel free to email me at <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x6a;&#x74;&#111;&#x6e;&#x67;&#x33;&#51;&#x40;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#106;&#116;&#111;&#110;&#x67;&#x33;&#51;&#x40;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
-</div>
-  
-  
+<p>If anyone has any questions regarding my posts or my experiences, feel free to email me at <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#x3a;&#106;&#116;&#111;&#x6e;&#103;&#x33;&#x33;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x6a;&#116;&#111;&#110;&#x67;&#51;&#51;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
   
   <div class="pagination">
     
+
     
   </div>
-
-  <div> <!-- Add Social Icon here Using FontAwesome -->
-<div class="social-nav" style="background-color: #3B3738">
-  <a href="https://twitter.com/jamesjtong"><i class="fa fa-twitter fa-2x icon-color icon-homepage"></i></a>
-	<a href="https://www.linkedin.com/pub/james-tong/2b/7b9/78a"><i class="fa fa-linkedin-square fa-2x icon-color icon-homepage"></i></a>
-  <a href="https://github.com/jamesjtong"><i class="fa fa-github fa-2x icon-color icon-homepage"></i></a>
-
-</div>
-
-</div>
 </div>
 
 
-    </div>
-  </div>
-  <!-- <footer role="contentinfo"><p>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <footer class="footer-page" role="contentinfo">
+          <p>
   Copyright &copy; 2014 - James Tong -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
 </p>
 
 
-
-</footer> &#8211;>
+        </footer>
+      </div>
+  </div>
   
 
 <script type="text/javascript">
@@ -993,7 +1100,7 @@ a) Create a simple programming project</li>
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -1018,7 +1125,7 @@ a) Create a simple programming project</li>
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
@@ -1027,73 +1134,5 @@ a) Create a simple programming project</li>
 
 
 
-  
-  <aside class="sidebar">
-    
-      <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2014/12/28/easy-rails-json-apis-with-rails-api-and-activemodel-serializers/">Easy Rails JSON APIs With Rails-api and Activemodel Serializers</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/17/what-the-rest-rest-in-pieces/">What the &#8220;REST&#8221;? REST in Pieces</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/20/bashing-commands-from-within-a-ruby-script/">BASHing Commands From Within a Ruby Script</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/10/pry-irbs-younger-brother/">Pry - IRB&#8217;s Smarter Younger Brother</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/20/resources-to-learn-ruby-slash-rails-programming-from-scratch/">Resources to Learn Ruby/Rails Programming From Scratch</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/jamesjtong">@jamesjtong</a> on GitHub
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'jamesjtong',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-
-
-
-    
-  </aside>
-  
 </body>
-
-
 </html>

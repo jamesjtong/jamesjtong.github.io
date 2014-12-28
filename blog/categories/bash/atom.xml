@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Bash | Experimenting with Code]]></title>
+  <title><![CDATA[Category: bash | Experimenting with Code]]></title>
   <link href="http://jamesjtong.github.io/blog/categories/bash/atom.xml" rel="self"/>
   <link href="http://jamesjtong.github.io/"/>
-  <updated>2014-12-28T13:51:01-05:00</updated>
+  <updated>2014-12-28T14:42:30-05:00</updated>
   <id>http://jamesjtong.github.io/</id>
   <author>
     <name><![CDATA[James Tong]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[BASHing Commands From Within a Ruby Script]]></title>
+    <title type="html"><![CDATA[BASHing Commands from Within a Ruby Script]]></title>
     <link href="http://jamesjtong.github.io/blog/2013/11/20/bashing-commands-from-within-a-ruby-script/"/>
     <updated>2013-11-20T10:21:00-05:00</updated>
     <id>http://jamesjtong.github.io/blog/2013/11/20/bashing-commands-from-within-a-ruby-script</id>
