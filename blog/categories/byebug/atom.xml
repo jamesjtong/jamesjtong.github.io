@@ -4,7 +4,7 @@
   <title><![CDATA[Category: byebug | Experimenting with Code]]></title>
   <link href="http://jamesjtong.github.io/blog/categories/byebug/atom.xml" rel="self"/>
   <link href="http://jamesjtong.github.io/"/>
-  <updated>2014-12-28T15:34:07-05:00</updated>
+  <updated>2014-12-28T15:59:33-05:00</updated>
   <id>http://jamesjtong.github.io/</id>
   <author>
     <name><![CDATA[James Tong]]></name>
@@ -129,14 +129,14 @@ reorganize(pigeon_data)
 
 <p>You will end up with something like this:</p>
 
-<p><img class="<a" src="href="http://jamesjtong.com/images/screenshotforpry.png">http://jamesjtong.com/images/screenshotforpry.png</a>&#8221;></p>
+<p><img src="/images/screenshotforpry.png"></p>
 
 <p>First type &lsquo;q&rsquo; to enter back into your pry session.
     q</p>
 
 <p>You can see a group of your local variables/methods with the &lsquo;ls&rsquo; command. You can even type in the name of the variable to see what it is currently defined as (shown below).</p>
 
-<p><img class="<a" src="href="http://jamesjtong.com/images/pryss2.png">http://jamesjtong.com/images/pryss2.png</a>&#8221;></p>
+<p><img src="/images/pryss2.png"></p>
 
 <p>As this is just an intro. to Pry and Pry-byebug and there are so many different things to learn about them, I will let you explore these two gems on your own. In this pry session, some other commands that you may want to try on your own are &lsquo;help&rsquo;, &lsquo;cd&rsquo;, &lsquo;quit&rsquo;, &lsquo;step&rsquo;, &lsquo;next&rsquo;.</p>
 
