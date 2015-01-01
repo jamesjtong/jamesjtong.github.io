@@ -122,6 +122,193 @@
 
   <div class="row-fluid">
     <div class="span2 post-meta">
+	  <h5 class="date-time">  Jan 1st, 2015
+<i class="icon-calendar-empty"></i> </h5>
+          <div class="row-fluid">
+          
+          <a href="http://jamesjtong.github.io/blog/2015/01/01/angular-ngoptions-quick-and-dirty-understanding/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/angular/"><span class="badge">angular</span></a>
+          
+          <a href="/blog/categories/angular-select/"><span class="badge">angular select</span></a>
+          
+          <a href="/blog/categories/angularjs/"><span class="badge">angularjs</span></a>
+          
+          <a href="/blog/categories/ng-options/"><span class="badge">ng-options</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2015/01/01/angular-ngoptions-quick-and-dirty-understanding/">Angular ngOptions Quick and Dirty Understanding</a></h1>
+      <p>Understanding ng-options is a lot simpler than one would expect after seeing the angular documentation for it.</p>
+
+<h1>When do we have to use it?</h1>
+
+<p> We use it when we want to bind a javascript object to a select box (using ng-model).
+(NOTE: ng-repeat can ONLY be used to bind a primitive/string to to a select box, it won&rsquo;t work with a javascript object).</p>
+
+<p>For example, let&rsquo;s say I want a select box that is able to change the currently selectedCompany. The code would look like the below:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// companies.js</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">$scope</span><span class="p">.</span><span class="nx">companies</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;ABC Soap Shop&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">revenue</span><span class="o">:</span> <span class="mi">5000</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;brick_and_mortar&quot;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Pizza Haven&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">id</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">revenue</span><span class="o">:</span> <span class="mi">100000</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;brick_and_mortar&quot;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;XYZ Mac Repair&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">id</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">revenue</span><span class="o">:</span> <span class="mi">45000</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;brick_and_mortar&quot;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Facebook&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">id</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">revenue</span><span class="o">:</span> <span class="mi">8999999</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;online&quot;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Apple&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">id</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">revenue</span><span class="o">:</span> <span class="mi">999999999999</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;online&quot;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">$scope</span><span class="p">.</span><span class="nx">selectedCompany</span> <span class="o">=</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">companies</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">List</span> <span class="nx">of</span> <span class="nx">Companies</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;</span><span class="nx">companies</span> <span class="p">{{</span><span class="nx">companies</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/pre&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;</span><span class="nx">selectedCompany</span> <span class="p">{{</span><span class="nx">selectedCompany</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/pre&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">select</span> <span class="nx">ng</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="s2">&quot;selectedCompany&quot;</span> <span class="nx">ng</span><span class="o">-</span><span class="nx">options</span><span class="o">=</span><span class="s2">&quot;company.name for company in companies&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/select&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Great! That is all the code is needed for this all too common situation. You can see from the screenshot below, it works as expected. When you change the selectbox value, then the whole object selectedCompany changes along with it.</p>
+
+<p><img src="/images/ng-option1.png"></p>
+
+<h1>Alright, so what&rsquo;s the deal with the the &ldquo;as&rdquo; keyword for ng-options?</h1>
+
+<p>The key to understanding this is that the binded value for selectedCompany by default is whatever is in between the &ldquo;for&rdquo; and &ldquo;in&rdquo; keyword (in our case company).</p>
+
+<p>We can change that with &ldquo;as&rdquo; keyword. Here is an example:
+Let&rsquo;s say that instead of binding selectedCompany to the whole company object, we just wanted to bind it to the id of the object. We can achieve this with the &ldquo;as&rdquo; keyword.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nx">selectedCompany</span> <span class="p">{{</span><span class="nx">selectedCompany</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">select</span> <span class="nx">ng</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="s2">&quot;selectedCompany&quot;</span> <span class="nx">ng</span><span class="o">-</span><span class="nx">options</span><span class="o">=</span><span class="s2">&quot;company.id as company.name for company in companies&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/select&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/ng-option2.png"></p>
+
+<p>Notice the flexibility with ng-options. We have the company name as the label, but the model bound value is the company id.</p>
+
+<p><strong>Just a recap:</strong> The word that is before the &ldquo;as&rdquo; keyword is the bound value; it is the value of what you want selectedCompany to be. The word that follows the &ldquo;as&rdquo; keyword is the option label. The word that follows the &ldquo;for&rdquo; keyword is whatever you want to refer each individual element as. Finally, the word after &ldquo;in&rdquo; is the array that you are using for ng-options.</p>
+
+<p>With the &ldquo;as&rdquo; syntax, the following 2 selects would be equivalent:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;select</span> <span class="na">ng-model=</span><span class="s">&quot;selectedCompany&quot;</span> <span class="na">ng-options=</span><span class="s">&quot;company.name for company in companies&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;/select&gt;</span>
+</span><span class='line'><span class="nt">&lt;select</span> <span class="na">ng-model=</span><span class="s">&quot;selectedCompany&quot;</span> <span class="na">ng-options=</span><span class="s">&quot;company as company.name for company in companies&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;/select&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Conclusion:</h1>
+
+<p>ng-options provides a flexible interface for dealing with the html select box and it&rsquo;s options. It is the angular way and you will definitely come across and have to learn it if you are writing production angular code. Although there are a few more things you can do with ng-options (using it with objects instead of arrays, grouping options, etc.), I am going to end here with an excerpt from the angular docs:</p>
+
+<blockquote><p>&ldquo;In many cases, ngRepeat can be used on option elements instead of ngOptions to achieve a similar result. However, ngOptions provides some benefits such as reducing memory and increasing speed by not creating a new scope for each repeated instance, as well as providing more flexibility in how the select&rsquo;s model is assigned via the select as part of the comprehension expression. ngOptions should be used when the select model needs to be bound to a non-string value. This is because an option element can only be bound to string values at present.&rdquo;</p></blockquote>
+
+<h2>USE ng-options!</h2>
+
+      
+      
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
+  
+  
+    <article>
+      
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
 	  <h5 class="date-time">  Dec 28th, 2014
 <i class="icon-calendar-empty"></i> </h5>
           <div class="row-fluid">
@@ -993,7 +1180,7 @@ a) Create a simple programming project</li>
 
 <p>After some time self-studying, I read an article about programming bootcamps and how they were revolutionizing learning. Excited about the prospect of an intense &ldquo;bootcamp-like&rdquo; learning experience, I did a lot of research on the different schools and started applying to many. I ended up choosing the Flatiron School. In this blog, I will post about some of the cool things that I learn along the way.</p>
 
-<p>If anyone has any questions regarding my posts or my experiences, feel free to email me at <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6a;&#116;&#111;&#x6e;&#x67;&#x33;&#51;&#64;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#106;&#x74;&#111;&#110;&#x67;&#x33;&#51;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p>If anyone has any questions regarding my posts or my experiences, feel free to email me at <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x6a;&#x74;&#111;&#110;&#x67;&#51;&#x33;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x6a;&#x74;&#x6f;&#x6e;&#103;&#51;&#x33;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
 
       
       
@@ -1018,7 +1205,7 @@ a) Create a simple programming project</li>
       <div class="row-fluid">
         <footer class="footer-page" role="contentinfo">
           <p>
-  Copyright &copy; 2014 - James Tong -
+  Copyright &copy; 2015 - James Tong -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
 </p>
 
