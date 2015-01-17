@@ -4,7 +4,7 @@
   <title><![CDATA[Experimenting with Code]]></title>
   <link href="http://jamesjtong.github.io/atom.xml" rel="self"/>
   <link href="http://jamesjtong.github.io/"/>
-  <updated>2015-01-01T18:47:55-05:00</updated>
+  <updated>2015-01-16T22:58:17-05:00</updated>
   <id>http://jamesjtong.github.io/</id>
   <author>
     <name><![CDATA[James Tong]]></name>
@@ -12,6 +12,83 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Easy CORS AngularJS with Rails]]></title>
+    <link href="http://jamesjtong.github.io/blog/2015/01/06/easy-cors-angularjs-with-rails/"/>
+    <updated>2015-01-06T14:21:41-05:00</updated>
+    <id>http://jamesjtong.github.io/blog/2015/01/06/easy-cors-angularjs-with-rails</id>
+    <content type="html"><![CDATA[<p>Setting Up CORS is quite simple with angularjs and rails.</p>
+
+<p>You are going to have to edit both the frontend and backend.</p>
+
+<h1>Frontend Angular Portion:</h1>
+
+<p>For the frontend portion, all you have to do is inject $httpProvider into your config and add 2 lines of code. See below for an example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;ultimateJobApplierApp&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span><span class='line'>  <span class="s1">&#39;ngCookies&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;ngResource&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;ngSanitize&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;ngRoute&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;ngClipboard&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;restangular&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="p">])</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$routeProvider</span><span class="p">,</span> <span class="nx">$httpProvider</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>     <span class="c1">// Enable CORS</span>
+</span><span class='line'>    <span class="nx">$httpProvider</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">useXDomain</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">delete</span> <span class="nx">$httpProvider</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">common</span><span class="p">[</span><span class="s1">&#39;X-Requested-With&#39;</span><span class="p">];</span>
+</span><span class='line'>  <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Rails Backend Portion:</h1>
+
+<p>For the rails back-end portion, start by adding the rack-cors gem to your gemfile. Then bundle.</p>
+
+<p>After that, just edit your config/application.rb</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">JobloggerApi</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Application</span>
+</span><span class='line'>    <span class="c1"># Configure Rack CORS</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">middleware</span><span class="o">.</span><span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Cors</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">allow</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">origins</span> <span class="s1">&#39;*&#39;</span>
+</span><span class='line'>        <span class="n">resource</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="ss">:any</span><span class="p">,</span> <span class="ss">:methods</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:get</span><span class="p">,</span> <span class="ss">:post</span><span class="p">,</span> <span class="ss">:options</span><span class="o">]</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Restart your app and CORS should now be enabled!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Angular ngOptions Quick and Dirty Understanding]]></title>
@@ -855,7 +932,7 @@ a) Create a simple programming project</li>
 
 <p>After some time self-studying, I read an article about programming bootcamps and how they were revolutionizing learning. Excited about the prospect of an intense &ldquo;bootcamp-like&rdquo; learning experience, I did a lot of research on the different schools and started applying to many. I ended up choosing the Flatiron School. In this blog, I will post about some of the cool things that I learn along the way.</p>
 
-<p>If anyone has any questions regarding my posts or my experiences, feel free to email me at <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x6a;&#x74;&#111;&#110;&#x67;&#51;&#x33;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x6a;&#x74;&#x6f;&#x6e;&#103;&#51;&#x33;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
+<p>If anyone has any questions regarding my posts or my experiences, feel free to email me at <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#106;&#116;&#111;&#x6e;&#x67;&#51;&#x33;&#x40;&#x67;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#106;&#116;&#x6f;&#110;&#103;&#51;&#51;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
 ]]></content>
   </entry>
   
