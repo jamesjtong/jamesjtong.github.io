@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: angularjs | Experimenting with Code]]></title>
+  <link href="http://jamesjtong.github.io/blog/categories/angularjs/atom.xml" rel="self"/>
+  <link href="http://jamesjtong.github.io/"/>
+  <updated>2015-01-01T18:47:55-05:00</updated>
+  <id>http://jamesjtong.github.io/</id>
+  <author>
+    <name><![CDATA[James Tong]]></name>
+    <email><![CDATA[jtong33@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Angular ngOptions Quick and Dirty Understanding]]></title>
+    <link href="http://jamesjtong.github.io/blog/2015/01/01/angular-ngoptions-quick-and-dirty-understanding/"/>
+    <updated>2015-01-01T16:20:25-05:00</updated>
+    <id>http://jamesjtong.github.io/blog/2015/01/01/angular-ngoptions-quick-and-dirty-understanding</id>
+    <content type="html"><![CDATA[<p>Understanding ng-options is a lot simpler than one would expect after seeing the angular documentation for it.</p>
+
+<h1>When do we have to use it?</h1>
+
+<p> We use it when we want to bind a javascript object to a select box (using ng-model).
+(NOTE: ng-repeat can ONLY be used to bind a primitive/string to to a select box, it won&rsquo;t work with a javascript object).</p>
+
+<p>For example, let&rsquo;s say I want a select box that is able to change the currently selectedCompany. The code would look like the below:</p>
+
+<pre><code class="javascript">// companies.js
+
+$scope.companies = [
+  {
+    name: "ABC Soap Shop",
+    id: 1,
+    revenue: 5000,
+    type: "brick_and_mortar"
+  },
+  {
+    name: "Pizza Haven",
+    id: 2,
+    revenue: 100000,
+    type: "brick_and_mortar"
+  },
+  {
+    name: "XYZ Mac Repair",
+    id: 3,
+    revenue: 45000,
+    type: "brick_and_mortar"
+  },
+  {
+    name: "Facebook",
+    id: 4,
+    revenue: 8999999,
+    type: "online"
+  },
+  {
+    name: "Apple",
+    id: 5,
+    revenue: 999999999999,
+    type: "online"
+  }
+]
+
+$scope.selectedCompany = $scope.companies[0];
+</code></pre>
+
+<p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>List of Companies&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;companies {{companies}}&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;selectedCompany {{selectedCompany}}&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;&lt;select ng-model="selectedCompany" ng-options="company.name for company in companies"&gt;
+</span><span class='line'>&lt;/select&gt;</span></code></pre></td></tr></table></div></figure>
+</p>
+
+<p>Great! That is all the code is needed for this all too common situation. You can see from the screenshot below, it works as expected. When you change the selectbox value, then the whole object selectedCompany changes along with it.</p>
+
+<p><img src="/images/ng-option1.png"></p>
+
+<h1>Alright, so what&rsquo;s the deal with the the &ldquo;as&rdquo; keyword for ng-options?</h1>
+
+<p>The key to understanding this is that the binded value for selectedCompany by default is whatever is in between the &ldquo;for&rdquo; and &ldquo;in&rdquo; keyword (in our case company).</p>
+
+<p>We can change that with &ldquo;as&rdquo; keyword. Here is an example:
+Let&rsquo;s say that instead of binding selectedCompany to the whole company object, we just wanted to bind it to the id of the object. We can achieve this with the &ldquo;as&rdquo; keyword.</p>
+
+<p>
+<code>
+&lt;span&gt;selectedCompany {{selectedCompany}}&lt;/span&gt;
+&lt;select ng-model="selectedCompany" ng-options="company.id as company.name for company in companies"&gt;
+&lt;/select&gt;
+</code></p>
+
+<p></p>
+
+<p><img src="/images/ng-option2.png"></p>
+
+<p>Notice the flexibility with ng-options. We have the company name as the label, but the model bound value is the company id.</p>
+
+<p><strong>Just a recap:</strong> The word that is before the &ldquo;as&rdquo; keyword is the bound value; it is the value of what you want selectedCompany to be. The word that follows the &ldquo;as&rdquo; keyword is the option label. The word that follows the &ldquo;for&rdquo; keyword is whatever you want to refer each individual element as. Finally, the word after &ldquo;in&rdquo; is the array that you are using for ng-options.</p>
+
+<p>With the &ldquo;as&rdquo; syntax, the following 2 selects would be equivalent:
+<code>html
+&lt;select ng-model="selectedCompany" ng-options="company.name for company in companies"&gt;
+&lt;/select&gt;
+&lt;select ng-model="selectedCompany" ng-options="company as company.name for company in companies"&gt;
+&lt;/select&gt;
+</code></p>
+
+<h1>Conclusion:</h1>
+
+<p>ng-options provides a flexible interface for dealing with the html select box and it&rsquo;s options. It is the angular way and you will definitely come across and have to learn it if you are writing production angular code. Although there are a few more things you can do with ng-options (using it with objects instead of arrays, grouping options, etc.), I am going to end here with an excerpt from the angular docs:</p>
+
+<blockquote><p>&ldquo;In many cases, ngRepeat can be used on option elements instead of ngOptions to achieve a similar result. However, ngOptions provides some benefits such as reducing memory and increasing speed by not creating a new scope for each repeated instance, as well as providing more flexibility in how the select&rsquo;s model is assigned via the select as part of the comprehension expression. ngOptions should be used when the select model needs to be bound to a non-string value. This is because an option element can only be bound to string values at present.&rdquo;</p></blockquote>
+
+<h2>USE ng-options!</h2>
+]]></content>
+  </entry>
+  
+</feed>
